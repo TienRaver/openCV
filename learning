@@ -1,1 +1,6 @@
+# Nhap duong thu muc anh
 from PIL import Image
+image_folder = 'F:/09.ComputerVision/openCV/image'
+# Mo anh
+image1 = Image.open(image_folder+"/Anh1.jpg")
+image1.show()

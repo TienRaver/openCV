@@ -1,6 +1,8 @@
-# Nhap duong thu muc anh
+# Nhap thu vien pillow và link thu muc chua anh
 from PIL import Image
-image_folder = 'F:/09.ComputerVision/openCV/image'
-# Mo anh
-image1 = Image.open(image_folder+"/Anh1.jpg")
-image1.show()
+# Mo thu muc anh goc
+folder_path = "F:/09.ComputerVision/openCV/image"
+image1 = Image.open(folder_path+"/Anh2.JPG")
+#Luu anh image1 thanh anh moi
+new_image1 = image1.save(folder_path+"/Anh1_New.JPG")
+image1.close() # Ngat ket noi

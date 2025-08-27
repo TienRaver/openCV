@@ -1,7 +1,6 @@
 # Nhap cac thu vien can thiet
 import os
 from PIL import Image
-from IPython.display import display
 # Func mo tat ca cac anh
 def OpenImage(folder_path):
     # Func kiem tra su ton tai cua thu muc
@@ -27,13 +26,9 @@ def OpenImage(folder_path):
             if os.path.isfile(folder_path+"/"+filename): # Kiem tra la file hay khong
                image = Image.open(folder_path+"/"+filename) # Mo duong dan
                image_list.append(image) # Them anh vao list
-               print(image.size)
-               display(image) # Mo anh
+               image.show()
                image.close()
         return image_list # Tra ve toan bo anh
     CheckFolder(folder_path)
     CheckImage_Extension(folder_path)
     LoadImage(folder_path)
-OpenImage(str(input("Enter path: ")))
-
-

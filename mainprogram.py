@@ -1,2 +1,3 @@
 import imagetool
-img1 = imagetool.load_image(str(input("Image link: ")))
+folder_path = str(input("Enter path: "))
+images = imagetool.OpenImage(folder_path)

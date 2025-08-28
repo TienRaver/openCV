@@ -1,3 +1,4 @@
 import imagetool
-folder_path = str(input("Enter path: "))
-images = imagetool.OpenImage(folder_path)
+folder_path = input("Folder path: ")
+image_path = input("Image path: ")
+imagetool.thumbnail(folder_path,image_path)

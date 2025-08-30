@@ -83,12 +83,17 @@ def thumbnail(folder_path,image_path):
     print("Copied new image successfully")
     image.close()
 # Func 5: Crop image
-def crop(image_path):
+def crop_paste(image_path):
     image = Image.open(image_path)
     # Change list --> tuple
-    region = input("Region crop(a,b,x,y): ")
+    region = input("Region crop(x,y,w,h): ")
     list_region = re.findall(r'\d+',region) # Separate digit by using re module
     crop_region = tuple([int(i) for i in list_region]) # List comprehension--> Tuple
     crop_image = image.crop(crop_region)
     crop_image.show()
+    paste_region = input("Region paste(x,y): ")
+    paste_list = re.findall(r'\d+',paste_region) # Separate digit by using re module
+    paste_position = tuple([int(i) for i in paste_list]) # List comprehension--> Tuple
+    image.paste(crop_image,paste_position)
+    image.show()
     image.close()

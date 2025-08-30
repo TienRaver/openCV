@@ -82,18 +82,31 @@ def thumbnail(folder_path,image_path):
     image.save(new_path,format=image.format,quality=100)
     print("Copied new image successfully")
     image.close()
-# Func 5: Crop image
+# Func 5: Crop and paste image
 def crop_paste(image_path):
     image = Image.open(image_path)
-    # Change list --> tuple
+    # Crop image
     region = input("Region crop(x,y,w,h): ")
-    list_region = re.findall(r'\d+',region) # Separate digit by using re module
-    crop_region = tuple([int(i) for i in list_region]) # List comprehension--> Tuple
+    list_region = re.findall(r'\d+',region) # Separate digit and make a list
+    crop_region = tuple([int(i) for i in list_region]) # Change list --> tuple
     crop_image = image.crop(crop_region)
     crop_image.show()
+    # Paste image
     paste_region = input("Region paste(x,y): ")
-    paste_list = re.findall(r'\d+',paste_region) # Separate digit by using re module
-    paste_position = tuple([int(i) for i in paste_list]) # List comprehension--> Tuple
+    paste_list = re.findall(r'\d+',paste_region) # Separate digit and make a list
+    paste_position = tuple([int(i) for i in paste_list]) # Change list --> tuple
     image.paste(crop_image,paste_position)
     image.show()
     image.close()
+# Func 6: Rotate image
+def rotate(image_path):
+    image = Image.open(image_path)
+    rotate_image = image.rotate(int(input("Rotate angle: ")))
+    rotate_image.show()
+    image.close()
+# Func 7: Transpose
+def transpose(image_path):
+    image = Image.open(image_path)
+    transpose_image = image.transpose(Image.ROTATE_90)
+    transpose_image.show()
+

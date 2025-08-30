@@ -109,4 +109,23 @@ def transpose(image_path):
     image = Image.open(image_path)
     transpose_image = image.transpose(Image.ROTATE_90)
     transpose_image.show()
-
+    image.close()
+# Func 8: Grayscale image
+def grayscale(image_path):
+    image = Image.open(image_path)
+    grayscale_image = image.convert('L')
+    grayscale_image.show()
+    image.close()
+def rgb_channel(image_path):
+    image = Image.open(image_path)
+    red,green,blue = image.split()
+    red.show()
+    green.show()
+    blue.show()
+    image.close()
+def merge(image_path):
+    image = Image.open(image_path)
+    red,green,blue = image.split()
+    merge_image = Image.merge("RGB",(red,green,blue))
+    merge_image.show()
+    image.close()

@@ -2,6 +2,7 @@
 import os
 from PIL import Image
 from IPython.display import display
+import re
 # Func 1: Open any image
 def OpenImage(image_path):
     image = Image.open(image_path)
@@ -62,7 +63,7 @@ def resize(folder_path,image_path):
     except Exception as e:
         print(f"Error: {e}")
     image.close()
-# Func 4: Thumbnail
+# Func 4: Thumbnail image
 def thumbnail(folder_path,image_path):
     image = Image.open(image_path)
     # Max image size
@@ -80,4 +81,14 @@ def thumbnail(folder_path,image_path):
     new_path = os.path.join(folder_path,new_name)
     image.save(new_path,format=image.format,quality=100)
     print("Copied new image successfully")
+    image.close()
+# Func 5: Crop image
+def crop(image_path):
+    image = Image.open(image_path)
+    # Change list --> tuple
+    region = input("Region crop(a,b,x,y): ")
+    list_region = re.findall(r'\d+',region) # Separate digit by using re module
+    crop_region = tuple([int(i) for i in list_region]) # List comprehension--> Tuple
+    crop_image = image.crop(crop_region)
+    crop_image.show()
     image.close()

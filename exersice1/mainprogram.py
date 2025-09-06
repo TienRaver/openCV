@@ -24,7 +24,7 @@ print("Save image successfully")
 image = Image.open(os.path.join(folder_path,new_name)).convert("L") # Convert RGB -> gray
 image_array = np.array(image)
 image_equalized = imagemodule.cdf_image(folder_path,new_name) # Call CDF func
-image_equalized_array = np.array(image_equalized).flatten() # Transform 2D --> 1D array
+image_equalized_array = np.array(image_equalized)
 plt.figure(figsize=(12,12))
 plt.subplot(2,2,1) # Make original image view
 plt.imshow(image,cmap="gray")
@@ -36,6 +36,15 @@ plt.subplot(2,2,3) # Make CDF's image view
 plt.imshow(image_equalized,cmap="gray")
 plt.title("CDF's image")
 plt.subplot(2,2,4) # Make histogram of CDF's image view
-plt.hist(image_equalized_array,bins=256)
+plt.hist(image_equalized_array.flatten(),bins=256)
 plt.title("Histogram of CDF's image")
+plt.show()
+# Step 4: Reverted image
+reverted_image = imagemodule.revert_image(image_equalized_array) # Call reverted image func
+fig,axs = plt.subplots(1,2,figsize=(10,5)) # Show result
+fig.subplots_adjust(wspace=0.2,hspace=0.2)
+axs[0].imshow(image_equalized,cmap="gray")
+axs[0].set_title("Original image")
+axs[1].imshow(reverted_image,cmap="gray")
+axs[1].set_title("Reverted image")
 plt.show()

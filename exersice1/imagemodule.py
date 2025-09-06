@@ -47,3 +47,7 @@ def cdf_image (folder_path,new_name):
     image_equalized = Image.fromarray(image_equal.astype("uint8"))
     # Return CDF image
     return image_equalized
+# Func 4: Revert grayscale image
+def revert_image(image_equalized_array):
+    reverted_image = 255-image_equalized_array
+    return reverted_image

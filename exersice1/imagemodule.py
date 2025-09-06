@@ -1,0 +1,49 @@
+from PIL import Image
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+
+# Func 1: Average image
+def average_image(list):
+      # Create new array
+    image = Image.open(list[0])
+    total_array = np.array(image,"f")
+    count = 1
+    try:  
+    # Average image    
+        for i in list[1:]:
+            total_array += np.array(Image.open(i),"f")
+            count += 1
+        average_array = total_array/count # Average image
+        # Make image from average image
+        image_array = Image.fromarray(average_array.astype("uint8"))
+    except Exception as e:
+        print(f"Error: {e}")
+    return image_array
+# Func 2: Save average image
+def save_average_image(folder_path,list):
+    # Check name for average image 
+    image = Image.open(list[0])
+    new_name = "average_image"
+    extension = image.format.lower()
+    if not new_name.lower().endswith(f".{extension}"):
+        new_name += f".{extension}"
+    # Call average_image func and save as a new one
+    image_array = average_image(list)
+    new_average_image = image_array.save(os.path.join(folder_path,new_name),format=image.format,quality=100)
+    return new_average_image,new_name
+# Func 3: Balance gray image by CDF algorithm
+def cdf_image (folder_path,new_name):
+    # Check gray mode of new average image
+    image = Image.open(os.path.join(folder_path,new_name))
+    if image.mode != "L":
+        image = image.convert("L")
+    # CDF algorithm
+    image_array = np.array(image)
+    histogram,bins = np.histogram(image_array,bins=256,range=(0,256),density=True)
+    cdf = histogram.cumsum()
+    cdf = 255*cdf/cdf[-1]
+    image_equal = np.interp(image_array,bins[:-1],cdf)
+    image_equalized = Image.fromarray(image_equal.astype("uint8"))
+    # Return CDF image
+    return image_equalized
